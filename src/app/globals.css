@@ -1,26 +1,123 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  color-scheme: dark;
+  
+  /* Canvas & Elevation */
+  --bg-canvas: #090D16;          /* Deepest space slate */
+  --bg-surface: #0F172A;         /* Primary card surface */
+  --bg-surface-elevated: #1E293B;/* Modals, popovers, dropdowns */
+  --bg-glass: rgba(15, 23, 42, 0.75);
+  
+  /* Borders & Accents */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-glow: rgba(99, 102, 241, 0.25);
+  --border-focus: #6366F1;
+  
+  /* Semantic Cash-Flow Colors */
+  --color-inflow: #10B981;       /* Emerald: Realized Income, Positive Delta */
+  --color-inflow-muted: rgba(16, 185, 129, 0.15);
+  
+  --color-liquid: #8B5CF6;       /* Violet: Liquid Pool, Primary Wallet */
+  --color-receivable: #06B6D4;   /* Cyan: Money Lent / Udhaar, Unsettled Assets */
+  --color-pipeline: #3B82F6;     /* Blue: Anticipated Inflow / Invoiced */
+  
+  --color-burn-safe: #10B981;    /* Emerald: Pacing <= 1.0 */
+  --color-burn-warn: #F59E0B;    /* Amber: Pacing 1.0 - 1.15 */
+  --color-burn-danger: #F43F5E;  /* Crimson: Pacing > 1.15, Impulses */
+  --color-impulse-glow: rgba(244, 63, 94, 0.2);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #090D16;
+  color: #F8FAFC;
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Glass Card styling adhering to LedgerForge Design System */
+.ledger-card {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ledger-card:hover {
+  border-color: rgba(99, 102, 241, 0.25);
+  box-shadow: 0 8px 30px -4px rgba(0, 0, 0, 0.6);
+}
+
+/* High-contrast Tabular Numerals */
+.tabular-num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+  font-family: var(--font-geist-mono), monospace;
+}
+
+/* Ambient glow utilities */
+.glow-liquid {
+  box-shadow: 0 0 25px -5px rgba(139, 92, 246, 0.25);
+}
+
+.glow-burn-safe {
+  box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.25);
+}
+
+.glow-burn-danger {
+  box-shadow: 0 0 25px -5px rgba(244, 63, 94, 0.3);
+}
+
+.glow-receivable {
+  box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.25);
+}
+
+.glow-pipeline {
+  box-shadow: 0 0 25px -5px rgba(59, 130, 246, 0.25);
+}
+
+/* Custom sleek scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #090D16;
+}
+::-webkit-scrollbar-thumb {
+  background: #1E293B;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Date & Time Picker Controls for Dark Theme */
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"] {
+  color-scheme: dark;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator,
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: invert(1) brightness(1.2);
+  opacity: 0.85;
+  border-radius: 4px;
+  padding: 3px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover,
+input[type="time"]::-webkit-calendar-picker-indicator:hover,
+input[type="datetime-local"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+  filter: invert(1) brightness(1.5) drop-shadow(0 0 4px rgba(139, 92, 246, 0.6));
+  background-color: rgba(139, 92, 246, 0.2);
+  transform: scale(1.1);
 }
